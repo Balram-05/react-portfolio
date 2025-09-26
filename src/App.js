@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+
+import Portfolio from "./components/Portfolio/Portfolio";
+import Stopwatch from "./components/StopwatchProject/Stopwatch";
+import Weather from "./components/WeatherProject/Weather";
+import Todo from "./components/TodoProject/Todo";
+import NotFound from './components/NotFound/NotFound';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/" element={<Portfolio />} />
+
+        <Route path="/stopwatch" element={<Stopwatch />} />
+        <Route path="/weather" element={<Weather />} />
+        <Route path="/todo" element={<Todo />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
   );
 }
