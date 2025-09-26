@@ -1,10 +1,8 @@
-import React, { useState, useContext } from "react";
-import { TodoContext } from "../TodoContext";
+import React, { useState } from "react";
 import { Button, TextField } from "@mui/material";
 
-const TodoInput = () => {
+const TodoInput = ({ addTodo }) => {
   const [text, setText] = useState("");
-  const { addTodo } = useContext(TodoContext);
 
   const handleAdd = () => {
     if (text.trim()) {

@@ -1,9 +1,7 @@
-import React, { useState, useContext } from "react";
-import { TodoContext } from "../TodoContext";
+import React, { useState } from "react";
 import { Button, TextField, Card, CardContent } from "@mui/material";
 
-const TodoItem = ({ todo }) => {
-  const { toggleComplete, editTodo } = useContext(TodoContext);
+const TodoItem = ({ todo, toggleComplete, editTodo }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newText, setNewText] = useState(todo.text);
 

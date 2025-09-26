@@ -1,48 +1,42 @@
-import React, { useContext } from 'react'; // Import useContext from React
-import { Link } from 'react-router-dom';
-import { Container, Button, Typography } from "@mui/material";
-// Import the default export as TodoProvider and the named export as TodoContext
-import TodoProvider, { TodoContext } from '../TodoContext';
-import TodoInput from './TodoInput';
-import TodoList from './TodoList';
-
-function TodoAppContent() {
-  // Use the standard useContext hook with the imported TodoContext
-  const { clearTodos } = useContext(TodoContext);
-
-  return (
-    <Container maxWidth="sm" style={{ marginTop: "2rem", textAlign: 'center' }}>
-      <Typography variant="h4" component="h1" gutterBottom>
-        Todo List Project
-      </Typography>
-
-      <TodoInput />
-      <TodoList />
-
-      <Button
-        onClick={clearTodos}
-        variant="outlined"
-        color="error"
-        style={{ marginTop: "1rem" }}
-      >
-        Clear All Todos
-      </Button>
-
-      <br />
-      <Link to="/" style={{ marginTop: '20px', display: 'inline-block', textDecoration: 'none' }}>
-        <Button variant="contained">
-          &larr; Back to Portfolio
-        </Button>
-      </Link>
-    </Container>
-  );
-}
+import React, { useState, useEffect } from "react";
+import TodoAppContent from "./TodoAppContent";
 
 export default function Todo() {
+  const [todos, setTodos] = useState(() => {
+    const saved = localStorage.getItem("todos");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
+  const addTodo = (text) => {
+    setTodos([...todos, { id: Date.now(), text, completed: false }]);
+  };
+
+  const toggleComplete = (id) => {
+    setTodos(
+      todos.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
+    );
+  };
+
+  const editTodo = (id, newText) => {
+    setTodos(todos.map((t) => (t.id === id ? { ...t, text: newText } : t)));
+  };
+
+  const clearTodos = () => {
+    localStorage.removeItem("todos");
+    setTodos([]);
+  };
+
   return (
-    <TodoProvider>
-      <TodoAppContent />
-    </TodoProvider>
+    <TodoAppContent
+      todos={todos}
+      addTodo={addTodo}
+      toggleComplete={toggleComplete}
+      editTodo={editTodo}
+      clearTodos={clearTodos}
+    />
   );
 }
-
