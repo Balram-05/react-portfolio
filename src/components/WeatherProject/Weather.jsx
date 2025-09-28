@@ -87,7 +87,7 @@ export default function Weather() {
           <Box sx={{ textAlign: 'center', mt: 4 }}>
             <Link to="/" style={{ textDecoration: 'none' }}>
               <Button variant="contained">
-                &larr; Back to Portfolio
+                 &larr Back to Portfolio
               </Button>
             </Link>
           </Box>
